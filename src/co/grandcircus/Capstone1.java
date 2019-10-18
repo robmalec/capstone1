@@ -60,20 +60,75 @@ public class Capstone1 {
 	
 	public static String handleCase(String input, String suffix) {
 		int numLowerCase = 0, numUpperCase = 0;
+		int lowerCaseChain = 0, upperCaseChain = 0;
+		Boolean caseChainOver3 = false;
 		for (char c : input.toCharArray()) {
 			if (Character.isLowerCase(c)) {
 				numLowerCase++;
+				upperCaseChain = 0;
+				lowerCaseChain++;
+				if (lowerCaseChain >= 3) {
+					caseChainOver3 = true;
+				}
 			}
 			else {
 				numUpperCase++;
+				lowerCaseChain = 0;
+				upperCaseChain++;
+				if (upperCaseChain >= 3) {
+					caseChainOver3 = true;
+				}
 			}
 		}
-		if (numUpperCase > numLowerCase) {
-			return suffix.toUpperCase();
+		
+		if (caseChainOver3) {
+			if (numUpperCase > numLowerCase) {
+				return suffix.toUpperCase();
+			}
+			else {
+				return suffix.toLowerCase();
+			}
 		}
 		else {
-			return suffix.toLowerCase();
+			
+			//Detecting if the person is typing in alternating capital letters as if they're being sarcastic on Reddit,
+			//and randomizing the capitalization of the pig latin ending if so
+			suffix = suffix.toLowerCase();
+			double random = 0.0;
+			for (int i = 0; i < suffix.length(); i++)
+			{
+				random = Math.random();
+				if (random > 0.5) {
+					try {
+						suffix = replaceChar(suffix, i, Character.toUpperCase(suffix.charAt(i)));
+					}
+					catch (Exception e)
+					{
+						System.out.println("Looks like there's a problem with replaceChar");
+					}
+				}
+				
+			}
+			return suffix;
 		}
+	}
+	
+	public static String replaceChar(String input, int replaceIndex, char newChar) {
+		if (replaceIndex == 0) {
+			input = input.substring(1);
+			return (newChar + input);
+		}
+		else if (replaceIndex == (input.length() - 1)) {
+			input = input.substring(0,(input.length() - 1));
+			return (input + newChar);
+		}
+		else
+		{
+			String first = input.substring(0,(replaceIndex - 1));
+			String last = input.substring(replaceIndex + 1);
+			return (first + newChar + last);
+		}
+		
 	}
 	
 	public static StringBuilder toPigLatin(StringBuilder input) {

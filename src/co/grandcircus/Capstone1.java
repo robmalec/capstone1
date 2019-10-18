@@ -15,7 +15,7 @@ public class Capstone1 {
 				System.out.println("Type in something to be translated to Pig Latin:");
 				
 				//Splitting up input by word
-				stringArray = scn.nextLine().split(" ");
+				stringArray = scn.nextLine().toLowerCase().split(" ");
 				
 				//Translating each word
 				for (int i = 0; i < stringArray.length; i++) {
@@ -47,8 +47,9 @@ public class Capstone1 {
 	}
 	public static String toPigLatin(String input) {
 		char temp = input.charAt(0);
+		String suffix = isVowel(temp) ? "yay" : "ay";
 		input = input.substring(1);
-		input+= temp + "ay";
+		input+= temp + suffix;
 		return input;
 	}
 	public static StringBuilder toPigLatin(StringBuilder input) {
@@ -56,5 +57,16 @@ public class Capstone1 {
 		input.deleteCharAt(0);
 		input.append("ay");
 		return input;
+	}
+	public static Boolean isVowel(char c) {
+		switch (c) {
+		case 'a':
+		case 'e':
+		case 'i':
+		case 'o':
+		case 'u':
+			return true;
+		}
+		return false;
 	}
 }

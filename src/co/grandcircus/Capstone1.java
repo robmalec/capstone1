@@ -152,13 +152,6 @@ public class Capstone1 {
 		
 	}
 	
-	public static StringBuilder toPigLatin(StringBuilder input) {
-		input.append(input.charAt(0));
-		input.deleteCharAt(0);
-		input.append("ay");
-		return input;
-	}
-	
 	/*
 	 * Returns true if input has any number or special character
 	 * */
@@ -195,6 +188,10 @@ public class Capstone1 {
 		}
 		return false;
 	}
+	
+	/*
+	 * Returns true if input contains any vowels
+	 * */
 	public static Boolean isVowel(char c) {
 		c = Character.toLowerCase(c);
 		switch (c) {
